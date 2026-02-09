@@ -1,289 +1,270 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {font: 12.0px 'PingFang HK'; font-kerning: none}
-    span.s3 {font: 12.0px 'Zapf Dingbats'; font-kerning: none}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Travel | 萬用旅遊助手</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background-color: #F9FAFB; }
+        .setup-gradient { background: linear-gradient(135deg, #134E4A 0%, #065F46 100%); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="zh-TW"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Global Travel | </span><span class="s2">萬用旅遊助手</span><span class="s1">&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;family=Noto+Sans+TC:wght@300;400;700&amp;display=swap');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background-color: #F9FAFB; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.setup-gradient { background: linear-gradient(135deg, #134E4A 0%, #065F46 100%); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.no-scrollbar::-webkit-scrollbar { display: none; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body class="max-w-md mx-auto min-h-screen relative shadow-2xl bg-white overflow-x-hidden"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div id="app"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div v-if="!isSetup" class="fixed inset-0 z-[9999] setup-gradient p-8 text-white flex flex-col justify-center"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="mb-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-4xl font-bold mb-2"&gt;Global Travel&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p class="opacity-70 italic text-sm font-light"&gt;</span><span class="s2">開啟你的下一個探險</span><span class="s1">...&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="space-y-6"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="text-[10px] uppercase tracking-widest opacity-60 font-bold"&gt;</span><span class="s2">旅程標題</span><span class="s1">&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;input v-model="config.title" placeholder="</span><span class="s2">例如：我的畢業旅行</span><span class="s1">" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none focus:border-white transition-all text-lg"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label class="text-[10px] uppercase tracking-widest opacity-60 font-bold"&gt;</span><span class="s2">目的地</span><span class="s1"> (</span><span class="s2">英文</span><span class="s1">)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;input v-model="config.destination" @blur="autoDetect" placeholder="</span><span class="s2">例如：</span><span class="s1">Tokyo, London, Paris" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none focus:border-white transition-all text-lg uppercase tracking-tighter"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p v-if="detectedInfo" class="text-[11px] mt-2 text-emerald-300"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;i class="fa-solid fa-wand-magic-sparkles mr-1"&gt;&lt;/i&gt;<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s2">偵測到：</span><span class="s1">{{ detectedInfo.currency }} / {{ detectedInfo.langName }}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-2 gap-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label class="text-[10px] uppercase tracking-widest opacity-60 font-bold"&gt;</span><span class="s2">出發日期</span><span class="s1">&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input v-model="config.startDate" type="date" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none text-sm"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label class="text-[10px] uppercase tracking-widest opacity-60 font-bold"&gt;</span><span class="s2">天數</span><span class="s1">&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input v-model.number="config.days" type="number" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none text-sm"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button @click="startTrip" class="w-full bg-white text-teal-900 py-4 rounded-2xl font-bold text-lg shadow-xl active:scale-95 transition-transform"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">生成專屬行程</span><span class="s1"> &lt;i class="fa-solid fa-arrow-right ml-2"&gt;&lt;/i&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div v-else class="pb-24 animate-fadeIn"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;header class="p-6 bg-white sticky top-0 z-50"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-start mb-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-black text-slate-800 tracking-tight"&gt;{{ config.title }}&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-teal-600 font-medium tracking-widest uppercase"&gt;{{ config.destination }}&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="text-right"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold text-slate-500"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>1 {{ config.currency }} ≈ {{ exchangeRate.toFixed(4) }} HKD</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex overflow-x-auto space-x-3 no-scrollbar"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div v-for="d in generatedDays" :key="d.full"<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>@click="selectedDate = d.full"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>:class="selectedDate === d.full ? 'bg-teal-800 text-white shadow-lg scale-105' : 'bg-slate-50 text-slate-400'"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                     </span>class="flex-shrink-0 w-14 h-16 rounded-2xl flex flex-col items-center justify-center transition-all cursor-pointer border border-slate-100"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="text-[9px] uppercase font-bold"&gt;{{ d.weekday }}&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="text-base font-black"&gt;{{ d.day }}&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;main class="px-6"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="mb-6 bg-slate-900 rounded-3xl p-5 text-white shadow-xl relative overflow-hidden"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="relative z-10"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-2 mb-3 opacity-60"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;i class="fa-solid fa-language text-xs"&gt;&lt;/i&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[10px] font-bold uppercase tracking-widest"&gt;</span><span class="s2">快速翻譯</span><span class="s1"> ({{ config.langName }})&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="space-y-3"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;input v-model="translateText" @keyup.enter="doTranslate" placeholder="</span><span class="s2">輸入中文</span><span class="s1">..." class="w-full bg-white/10 p-3 rounded-xl outline-none text-sm border border-white/10"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div v-if="translatedResult" class="p-3 bg-emerald-500/20 rounded-xl border border-emerald-500/30"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs text-emerald-300 mb-1 leading-none"&gt;</span><span class="s2">翻譯結果：</span><span class="s1">&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;p class="text-lg font-medium"&gt;{{ translatedResult }}&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;i class="fa-solid fa-earth-asia absolute -right-4 -bottom-4 text-7xl opacity-10"&gt;&lt;/i&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;section v-if="activeTab === 'itinerary'" class="space-y-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div v-for="(item, index) in filteredItinerary" :key="index" class="group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:border-teal-200 transition-colors"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between items-center mb-2"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;input v-model="item.time" type="time" class="text-xs font-black text-teal-700 outline-none"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button @click="removeItinerary(index)" class="text-slate-200 group-hover:text-red-400 transition-colors"&gt;&lt;i class="fa-solid fa-circle-xmark"&gt;&lt;/i&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input v-model="item.location" @change="saveToFirebase" class="w-full font-bold text-slate-700 outline-none bg-transparent" placeholder="</span><span class="s2">輸入目的地</span><span class="s1">..."&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button @click="addItinerary" class="w-full py-4 rounded-2xl border-2 border-dashed border-slate-100 text-slate-400 text-sm font-bold hover:bg-slate-50"&gt;+ Add Spot&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;section v-if="activeTab === 'split'" class="space-y-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-2 mb-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;input v-model.number="newExpense.amount" type="number" :placeholder="'</span><span class="s2">金額</span><span class="s1"> ('+config.currency+')'" class="flex-1 p-3 bg-slate-50 rounded-xl outline-none text-sm"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="p-3 bg-teal-50 rounded-xl text-teal-700 font-bold text-sm"&gt;≈ HKD {{ (newExpense.amount * exchangeRate).toFixed(1) }}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button @click="addExpense" class="w-full bg-teal-800 text-white py-4 rounded-2xl font-bold"&gt;</span><span class="s2">記錄同步</span><span class="s1">&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div v-for="b in balances" class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-white"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="text-xs font-bold"&gt;{{b.from}} </span><span class="s3">➜</span><span class="s1"> {{b.to}}&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-black text-teal-700"&gt;HKD ${{ (b.amount * exchangeRate).toFixed(1) }}&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto glass-nav py-4 px-12 flex justify-between border-t border-slate-100 z-50"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'text-teal-800 scale-110' : 'text-slate-300'"&gt;&lt;i class="fa-solid fa-map-pin text-xl"&gt;&lt;/i&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button @click="activeTab = 'split'" :class="activeTab === 'split' ? 'text-teal-800 scale-110' : 'text-slate-300'"&gt;&lt;i class="fa-solid fa-wallet text-xl"&gt;&lt;/i&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button @click="resetConfig" class="text-slate-300"&gt;&lt;i class="fa-solid fa-gear text-xl"&gt;&lt;/i&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/nav&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1">// --- Firebase </span><span class="s2">配置</span><span class="s1"> (</span><span class="s2">請填寫你自己的</span><span class="s1">) ---</span></p>
-<p class="p1"><span class="s1">const firebaseConfig = { apiKey: "AIza...", ... };<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1">firebase.initializeApp(firebaseConfig);</span></p>
-<p class="p1"><span class="s1">const db = firebase.database();</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">const { createApp, ref, computed, onMounted } = Vue;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">createApp({</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>setup() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const isSetup = ref(false);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const activeTab = ref('itinerary');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const selectedDate = ref('');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const translateText = ref('');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const translatedResult = ref('');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const exchangeRate = ref(0);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const config = ref({</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>title: '',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>destination: '',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>startDate: '',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>days: 5,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>currency: 'USD',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>langCode: 'en',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>langName: '</span><span class="s2">英文</span><span class="s1">'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const itinerary = ref([]);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const expenses = ref([]);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const members = ref(['</span><span class="s2">我</span><span class="s1">', '</span><span class="s2">夥伴</span><span class="s1">A', '</span><span class="s2">夥伴</span><span class="s1">B']);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const newExpense = ref({ amount: 0, payer: '</span><span class="s2">我</span><span class="s1">' });</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// </span><span class="s2">自動偵測資料庫</span><span class="s1"> (</span><span class="s2">根據地名關鍵字</span><span class="s1">)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const autoDetect = () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const dest = config.value.destination.toLowerCase();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const dict = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'tokyo': { cur: 'JPY', lang: 'ja', name: '</span><span class="s2">日文</span><span class="s1">', country: 'Japan' },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'osaka': { cur: 'JPY', lang: 'ja', name: '</span><span class="s2">日文</span><span class="s1">', country: 'Japan' },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'london': { cur: 'GBP', lang: 'en', name: '</span><span class="s2">英文</span><span class="s1">', country: 'UK' },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'paris': { cur: 'EUR', lang: 'fr', name: '</span><span class="s2">法文</span><span class="s1">', country: 'France' },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'seoul': { cur: 'KRW', lang: 'ko', name: '</span><span class="s2">韓文</span><span class="s1">', country: 'Korea' },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'bangkok': { cur: 'THB', lang: 'th', name: '</span><span class="s2">泰文</span><span class="s1">', country: 'Thailand' }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let key in dict) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (dest.includes(key)) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>config.value.currency = dict[key].cur;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>config.value.langCode = dict[key].lang;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>config.value.langName = dict[key].name;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const detectedInfo = computed(() =&gt; config.value.currency ? config.value : null);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// </span><span class="s2">生成日期數組</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const generatedDays = computed(() =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!config.value.startDate) return [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const result = [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let start = new Date(config.value.startDate);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; config.value.days; i++) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>let d = new Date(start);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>d.setDate(start.getDate() + i);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>result.push({</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>full: d.toISOString().split('T')[0],</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>day: d.getDate(),</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>weekday: d.toLocaleDateString('en-US', { weekday: 'short' })</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return result;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const startTrip = async () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!config.value.title || !config.value.destination) return alert('</span><span class="s2">請填寫完整資訊</span><span class="s1">');</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// </span><span class="s2">抓取即時匯率</span><span class="s1"> (</span><span class="s2">對</span><span class="s1"> HKD)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>try {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${config.value.currency}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const data = await res.json();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>exchangeRate.value = data.rates.HKD;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} catch (e) { exchangeRate.value = 1; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>selectedDate.value = config.value.startDate;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>isSetup.value = true;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>saveToFirebase();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// </span><span class="s2">模擬翻譯功能</span><span class="s1"> (</span><span class="s2">實際可接</span><span class="s1"> MyMemory API)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const doTranslate = async () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!translateText.value) return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(translateText.value)}&amp;langpair=zh-TW|${config.value.langCode}`);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const data = await res.json();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>translatedResult.value = data.responseData.translatedText;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const filteredItinerary = computed(() =&gt; itinerary.value.filter(i =&gt; i.date === selectedDate.value));</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const addItinerary = () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>itinerary.value.push({ date: selectedDate.value, time: '12:00', location: '' });</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>saveToFirebase();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const addExpense = () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (newExpense.value.amount &gt; 0) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>expenses.value.push({ ...newExpense.value });</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>newExpense.value.amount = 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>saveToFirebase();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const saveToFirebase = () =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>db.ref('universalTrip').set({</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>config: config.value,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>itinerary: itinerary.value,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>expenses: expenses.value,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>exchangeRate: exchangeRate.value</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const resetConfig = () =&gt; { if(confirm('</span><span class="s2">重設將清除所有設定，確定嗎？</span><span class="s1">')) isSetup.value = false; };</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>return {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>isSetup, config, autoDetect, detectedInfo, startTrip, generatedDays, selectedDate,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>activeTab, translateText, translatedResult, doTranslate, exchangeRate,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>itinerary, filteredItinerary, addItinerary, expenses, newExpense, addExpense,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>saveToFirebase, resetConfig, balances: computed(() =&gt; []) // </span><span class="s2">分帳邏輯同前</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1">}).mount('#app')</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+<body class="max-w-md mx-auto min-h-screen relative shadow-2xl bg-white overflow-x-hidden">
+
+<div id="app">
+    <div v-if="!isSetup" class="fixed inset-0 z-[9999] setup-gradient p-8 text-white flex flex-col justify-center">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold mb-2">Global Travel</h1>
+            <p class="opacity-70 italic text-sm font-light">開啟你的下一個探險...</p>
+        </div>
+
+        <div class="space-y-6">
+            <div>
+                <label class="text-[10px] uppercase tracking-widest opacity-60 font-bold">旅程標題</label>
+                <input v-model="config.title" placeholder="例如：我的畢業旅行" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none focus:border-white transition-all text-lg">
+            </div>
+
+            <div>
+                <label class="text-[10px] uppercase tracking-widest opacity-60 font-bold">目的地 (英文)</label>
+                <input v-model="config.destination" @blur="autoDetect" placeholder="例如：Tokyo, London, Paris" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none focus:border-white transition-all text-lg uppercase tracking-tighter">
+                <p v-if="detectedInfo" class="text-[11px] mt-2 text-emerald-300">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 
+                    偵測到：{{ detectedInfo.currency }} / {{ detectedInfo.langName }}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest opacity-60 font-bold">出發日期</label>
+                    <input v-model="config.startDate" type="date" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none text-sm">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest opacity-60 font-bold">天數</label>
+                    <input v-model.number="config.days" type="number" class="w-full bg-white/10 border-b border-white/30 p-3 outline-none text-sm">
+                </div>
+            </div>
+
+            <button @click="startTrip" class="w-full bg-white text-teal-900 py-4 rounded-2xl font-bold text-lg shadow-xl active:scale-95 transition-transform">
+                生成專屬行程 <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <div v-else class="pb-24 animate-fadeIn">
+        <header class="p-6 bg-white sticky top-0 z-50">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">{{ config.title }}</h2>
+                    <p class="text-xs text-teal-600 font-medium tracking-widest uppercase">{{ config.destination }}</p>
+                </div>
+                <div class="text-right">
+                    <div class="bg-slate-100 px-3 py-1 rounded-full text-[10px] font-bold text-slate-500">
+                        1 {{ config.currency }} ≈ {{ exchangeRate.toFixed(4) }} HKD
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex overflow-x-auto space-x-3 no-scrollbar">
+                <div v-for="d in generatedDays" :key="d.full" 
+                     @click="selectedDate = d.full"
+                     :class="selectedDate === d.full ? 'bg-teal-800 text-white shadow-lg scale-105' : 'bg-slate-50 text-slate-400'"
+                     class="flex-shrink-0 w-14 h-16 rounded-2xl flex flex-col items-center justify-center transition-all cursor-pointer border border-slate-100">
+                    <span class="text-[9px] uppercase font-bold">{{ d.weekday }}</span>
+                    <span class="text-base font-black">{{ d.day }}</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="px-6">
+            <div class="mb-6 bg-slate-900 rounded-3xl p-5 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3 opacity-60">
+                        <i class="fa-solid fa-language text-xs"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest">快速翻譯 ({{ config.langName }})</span>
+                    </div>
+                    <div class="space-y-3">
+                        <input v-model="translateText" @keyup.enter="doTranslate" placeholder="輸入中文..." class="w-full bg-white/10 p-3 rounded-xl outline-none text-sm border border-white/10">
+                        <div v-if="translatedResult" class="p-3 bg-emerald-500/20 rounded-xl border border-emerald-500/30">
+                            <p class="text-xs text-emerald-300 mb-1 leading-none">翻譯結果：</p>
+                            <p class="text-lg font-medium">{{ translatedResult }}</p>
+                        </div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-earth-asia absolute -right-4 -bottom-4 text-7xl opacity-10"></i>
+            </div>
+
+            <section v-if="activeTab === 'itinerary'" class="space-y-4">
+                <div v-for="(item, index) in filteredItinerary" :key="index" class="group bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:border-teal-200 transition-colors">
+                    <div class="flex justify-between items-center mb-2">
+                        <input v-model="item.time" type="time" class="text-xs font-black text-teal-700 outline-none">
+                        <button @click="removeItinerary(index)" class="text-slate-200 group-hover:text-red-400 transition-colors"><i class="fa-solid fa-circle-xmark"></i></button>
+                    </div>
+                    <input v-model="item.location" @change="saveToFirebase" class="w-full font-bold text-slate-700 outline-none bg-transparent" placeholder="輸入目的地...">
+                </div>
+                <button @click="addItinerary" class="w-full py-4 rounded-2xl border-2 border-dashed border-slate-100 text-slate-400 text-sm font-bold hover:bg-slate-50">+ Add Spot</button>
+            </section>
+
+            <section v-if="activeTab === 'split'" class="space-y-4">
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
+                    <div class="flex gap-2 mb-4">
+                        <input v-model.number="newExpense.amount" type="number" :placeholder="'金額 ('+config.currency+')'" class="flex-1 p-3 bg-slate-50 rounded-xl outline-none text-sm">
+                        <div class="p-3 bg-teal-50 rounded-xl text-teal-700 font-bold text-sm">≈ HKD {{ (newExpense.amount * exchangeRate).toFixed(1) }}</div>
+                    </div>
+                    <button @click="addExpense" class="w-full bg-teal-800 text-white py-4 rounded-2xl font-bold">記錄同步</button>
+                </div>
+                <div v-for="b in balances" class="p-4 bg-slate-50 rounded-2xl flex justify-between items-center border border-white">
+                    <span class="text-xs font-bold">{{b.from}} ➜ {{b.to}}</span>
+                    <span class="text-sm font-black text-teal-700">HKD ${{ (b.amount * exchangeRate).toFixed(1) }}</span>
+                </div>
+            </section>
+        </main>
+
+        <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto glass-nav py-4 px-12 flex justify-between border-t border-slate-100 z-50">
+            <button @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'text-teal-800 scale-110' : 'text-slate-300'"><i class="fa-solid fa-map-pin text-xl"></i></button>
+            <button @click="activeTab = 'split'" :class="activeTab === 'split' ? 'text-teal-800 scale-110' : 'text-slate-300'"><i class="fa-solid fa-wallet text-xl"></i></button>
+            <button @click="resetConfig" class="text-slate-300"><i class="fa-solid fa-gear text-xl"></i></button>
+        </nav>
+    </div>
+</div>
+
+<script>
+// --- Firebase 配置 (請填寫你自己的) ---
+const firebaseConfig = { apiKey: "AIza...", ... }; 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const { createApp, ref, computed, onMounted } = Vue;
+
+createApp({
+    setup() {
+        const isSetup = ref(false);
+        const activeTab = ref('itinerary');
+        const selectedDate = ref('');
+        const translateText = ref('');
+        const translatedResult = ref('');
+        const exchangeRate = ref(0);
+
+        const config = ref({
+            title: '',
+            destination: '',
+            startDate: '',
+            days: 5,
+            currency: 'USD',
+            langCode: 'en',
+            langName: '英文'
+        });
+
+        const itinerary = ref([]);
+        const expenses = ref([]);
+        const members = ref(['我', '夥伴A', '夥伴B']);
+        const newExpense = ref({ amount: 0, payer: '我' });
+
+        // 自動偵測資料庫 (根據地名關鍵字)
+        const autoDetect = () => {
+            const dest = config.value.destination.toLowerCase();
+            const dict = {
+                'tokyo': { cur: 'JPY', lang: 'ja', name: '日文', country: 'Japan' },
+                'osaka': { cur: 'JPY', lang: 'ja', name: '日文', country: 'Japan' },
+                'london': { cur: 'GBP', lang: 'en', name: '英文', country: 'UK' },
+                'paris': { cur: 'EUR', lang: 'fr', name: '法文', country: 'France' },
+                'seoul': { cur: 'KRW', lang: 'ko', name: '韓文', country: 'Korea' },
+                'bangkok': { cur: 'THB', lang: 'th', name: '泰文', country: 'Thailand' }
+            };
+            
+            for (let key in dict) {
+                if (dest.includes(key)) {
+                    config.value.currency = dict[key].cur;
+                    config.value.langCode = dict[key].lang;
+                    config.value.langName = dict[key].name;
+                    return;
+                }
+            }
+        };
+
+        const detectedInfo = computed(() => config.value.currency ? config.value : null);
+
+        // 生成日期數組
+        const generatedDays = computed(() => {
+            if (!config.value.startDate) return [];
+            const result = [];
+            let start = new Date(config.value.startDate);
+            for (let i = 0; i < config.value.days; i++) {
+                let d = new Date(start);
+                d.setDate(start.getDate() + i);
+                result.push({
+                    full: d.toISOString().split('T')[0],
+                    day: d.getDate(),
+                    weekday: d.toLocaleDateString('en-US', { weekday: 'short' })
+                });
+            }
+            return result;
+        });
+
+        const startTrip = async () => {
+            if (!config.value.title || !config.value.destination) return alert('請填寫完整資訊');
+            
+            // 抓取即時匯率 (對 HKD)
+            try {
+                const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${config.value.currency}`);
+                const data = await res.json();
+                exchangeRate.value = data.rates.HKD;
+            } catch (e) { exchangeRate.value = 1; }
+
+            selectedDate.value = config.value.startDate;
+            isSetup.value = true;
+            saveToFirebase();
+        };
+
+        // 模擬翻譯功能 (實際可接 MyMemory API)
+        const doTranslate = async () => {
+            if (!translateText.value) return;
+            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(translateText.value)}&langpair=zh-TW|${config.value.langCode}`);
+            const data = await res.json();
+            translatedResult.value = data.responseData.translatedText;
+        };
+
+        const filteredItinerary = computed(() => itinerary.value.filter(i => i.date === selectedDate.value));
+
+        const addItinerary = () => {
+            itinerary.value.push({ date: selectedDate.value, time: '12:00', location: '' });
+            saveToFirebase();
+        };
+
+        const addExpense = () => {
+            if (newExpense.value.amount > 0) {
+                expenses.value.push({ ...newExpense.value });
+                newExpense.value.amount = 0;
+                saveToFirebase();
+            }
+        };
+
+        const saveToFirebase = () => {
+            db.ref('universalTrip').set({
+                config: config.value,
+                itinerary: itinerary.value,
+                expenses: expenses.value,
+                exchangeRate: exchangeRate.value
+            });
+        };
+
+        const resetConfig = () => { if(confirm('重設將清除所有設定，確定嗎？')) isSetup.value = false; };
+
+        return {
+            isSetup, config, autoDetect, detectedInfo, startTrip, generatedDays, selectedDate,
+            activeTab, translateText, translatedResult, doTranslate, exchangeRate,
+            itinerary, filteredItinerary, addItinerary, expenses, newExpense, addExpense,
+            saveToFirebase, resetConfig, balances: computed(() => []) // 分帳邏輯同前
+        }
+    }
+}).mount('#app')
+</script>
 </body>
 </html>
